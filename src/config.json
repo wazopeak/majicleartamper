@@ -1,5 +1,5 @@
 {
-    "SERVER_URL": "https://wptwatertamper.api.wazopeak.co.tz/",
+    "SERVER_URL": "http://127.0.0.1:5173",
     "STRON_URL": "http://www.server-newr.stronpower.com",
     "TAMPER_URL": "http://www.server-newv.stronpower.com",
     "BEEMS_URL": "https://apisms.beem.africa",
