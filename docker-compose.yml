@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    image: majicleartamper-web:latest
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    ports:
+      # bind the host side to 127.0.0.1 so the service is only accessible locally
+      - "127.0.0.1:5173:5173"
+    # optional: limit resources (example)
+    deploy: {}
