@@ -6,6 +6,16 @@ import svgr from '@svgr/rollup';
 // import configData from "../config.json";
 import configData from "./src/config.json";
 
+// Proxy target selection:
+// - During development, default to local backend at 127.0.0.1:2010 so Vite dev server proxies to local API.
+// - In other environments, fall back to values from `src/config.json`.
+// - You can override targets with environment variables (VITE_SERVER_URL, VITE_STRON_URL, VITE_TAMPER_URL, VITE_BEEMS_URL).
+const DEV_LOCAL_SERVER = 'http://127.0.0.1:2010';
+const serverTarget = process.env.VITE_SERVER_URL || (process.env.NODE_ENV === 'development' ? DEV_LOCAL_SERVER : configData.SERVER_URL);
+const stronTarget = process.env.VITE_STRON_URL || configData.STRON_URL;
+const tamperTarget = process.env.VITE_TAMPER_URL || configData.TAMPER_URL;
+const beemsTarget = process.env.VITE_BEEMS_URL || configData.BEEMS_URL;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -47,165 +57,165 @@ export default defineConfig({
   server: {
     proxy: {
       '/users/create': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/create/, '/users/create')
       },
 
       '/users/allusers': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/allusers/, '/users/allusers')
       },
 
       '/users/updateuser': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/updateuser/, '/users/updateuser')
       },
 
 
       '/users/allrole': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/allrole/, '/users/allrole')
       },
 
       '/users/allrolegroup': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/allrolegroup/, '/users/allrolegroup')
       },
 
 
       '/users/allmeters': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/allmeters/, '/users/allmeters')
       },
 
       '/users/createMeter': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/createMeter/, '/users/createMeter')
       },
 
       '/users/import': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/import/, '/users/import')
       },
 
       '/api/NewMeter': {
-        target: configData.STRON_URL,
+        target: stronTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/NewMeter/, '/api/NewMeter')
       },
 
       '/users/updatemeter': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/updatemeter/, '/users/updatemeter')
       },
 
       '/api/UpdateMeter': {
-        target: configData.STRON_URL,
+        target: stronTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/UpdateMeter/, '/api/UpdateMeter')
       },
 
       '/users/createCustomer': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/createCustomer/, '/users/createCustomer')
       },
 
       '/api/NewCustomer': {
-        target: configData.STRON_URL,
+        target: stronTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/NewCustomer/, '/api/NewCustomer')
       },
 
       '/users/allcustomers': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/allcustomers/, '/users/allcustomers')
       },
 
       '/users/customername': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/customername/, '/users/customername')
       },
 
       '/users/allprices': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/allprices/, '/users/allprices')
       },
 
       '/users/allpricebymeter': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/allpricebymeter/, '/users/allpricebymeter')
       },
 
       '/users/checkauth': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/checkauth/, '/users/checkauth')
       },
 
       '/users/lastcusid': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/lastcusid/, '/users/lastcusid')
       },
 
       '/users/updatecustomer': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/updatecustomer/, '/users/updatecustomer')
       },
 
       '/api/UpdateCustomer': {
-        target: configData.STRON_URL,
+        target: stronTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/UpdateCustomer/, '/api/UpdateCustomer')
       },
 
       '/users/getallreceipt': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/getallreceipt/, '/users/getallreceipt')
       },
 
       '/v1/send': {
-        target: configData.BEEMS_URL,
+        target: beemsTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/v1\/send/, '/v1/send')
       },
 
       '/api/VendingMeter': {
-        target: configData.STRON_URL,
+        target: stronTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/VendingMeter/, '/api/VendingMeter')
       },
 
       '/api/VendingMeterSendToken': {
-        target: configData.STRON_URL,
+        target: stronTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/VendingMeterSendToken/, '/api/VendingMeterSendToken')
       },
 
       '/users/createtransact': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/createtransact/, '/users/createtransact')
       },
 
       '/users/logins': {
-        target: configData.SERVER_URL,
+        target: serverTarget,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users\/logins/, '/users/logins')
       },
