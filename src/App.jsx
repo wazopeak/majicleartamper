@@ -8,7 +8,7 @@ import Router from './routes/Router';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import { useNavigate } from 'react-router';
-import axios from 'axios';
+import axios from 'src/utils/axios';
 
 function App() {
   const routing = useRoutes(Router);
